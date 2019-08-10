@@ -8,7 +8,7 @@ proc base(title: string) {.html_templ.} =
       meta(charset = "UTF-8")
       title: title
 
-      link(rel = "stylesheet", href = "/static/bootstrap-4.3.1-dist/css/bootstrap.min.css")
+      link(rel = "stylesheet", href = "/static/bower_components/bootstrap/dist/css/bootstrap.min.css")
     body:
       # {.filters = nil.}
       nav(class = "navbar navbar-expand-md navbar-dark bg-dark fixed-top"):
@@ -49,4 +49,5 @@ proc base(title: string) {.html_templ.} =
         <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
       </div> ]#
 
-      script(src = "/static/bootstrap.native-master/dist/bootstrap-native-v4.min.js")
+      block scripts:
+        script(src = "/static/bower_components/bootstrap.native/dist/bootstrap-native-v4.js")

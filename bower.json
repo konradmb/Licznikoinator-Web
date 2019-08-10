@@ -1,0 +1,25 @@
+{
+  "name": "licznikoinator-web",
+  "homepage": "https://github.com/konradmb/Licznikoinator-Web",
+  "authors": [
+    "Konrad"
+  ],
+  "description": "",
+  "main": "app.nim",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/static/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "chartjs-plugin-streaming": "^1.8.0",
+    "bootstrap": "^4.3.1",
+    "bootstrap.native": "^2.0.26",
+    "chart.js": "^2.8.0",
+    "moment": "^2.24.0"
+  }
+}
