@@ -7,7 +7,7 @@ proc index() {.html_templ: base .} =
     ul(id="list")
     script(`type` = "text/javascript"): 
       """
-        var evtSource = new EventSource("/time");
+        var evtSource = new EventSource("/time-live");
         evtSource.onmessage = function(e){
           console.log(e);
           var newElement = document.createElement("li");
