@@ -24,6 +24,7 @@ router index:
       "data: {time: \'" & getClockStr() & "\'} \n\n"
     resp(data, "text/event-stream")
   get "/time-live":
+    enableRawMode()
     request.sendHeaders(Http200,@({"Content-Type": "text/event-stream"}))
     for i in 0 .. 10:
       let data = 
@@ -34,5 +35,3 @@ router index:
     let nativeReq = request.getNativeReq()
     nativeReq.forget()
     nativeReq.client.close()
-    result.matched=true
-    break routesList

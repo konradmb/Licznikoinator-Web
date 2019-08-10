@@ -4,17 +4,14 @@ include base/base
 proc index() {.html_templ: base .} =
   replace content:
     h2: "Hello World!"
-    ul(id="list")
+    h3(id="time")
     script(`type` = "text/javascript"): 
       """
         var evtSource = new EventSource("/time-live");
         evtSource.onmessage = function(e){
           console.log(e);
-          var newElement = document.createElement("li");
-          var eventList = document.getElementById('list');
-
-          newElement.innerHTML = "message: " + e.data;
-          eventList.appendChild(newElement);
+          var timeElement = document.getElementById('time');
+          timeElement.innerText = e.data;
         }
       """
 
