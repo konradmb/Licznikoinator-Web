@@ -10,7 +10,7 @@ proc base(title: string) {.html_templ.} =
 
       link(rel = "stylesheet", href = "/static/bootstrap-4.3.1-dist/css/bootstrap.min.css")
     body:
-      {.filters = nil.}
+      # {.filters = nil.}
       nav(class = "navbar navbar-expand-md navbar-dark bg-dark fixed-top"):
         a(class = "navbar-brand", href = "#"): "Licznikoinator"
         button(class = "navbar-toggler", type = "button",
