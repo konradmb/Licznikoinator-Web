@@ -1,5 +1,5 @@
 import emerald
-include base/base
+include ../../base/templates/base
 
 proc index() {.html_templ: base .} =
   replace content:
