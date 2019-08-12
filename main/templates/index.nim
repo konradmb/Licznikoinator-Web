@@ -14,5 +14,7 @@ proc index() {.html_templ: base .} =
           timeElement.innerText = e.data;
         }
       """
-
-    
+  append scripts:
+    script(src = "/static/bower_components/moment/min/moment-with-locales.min.js")
+    script(src = "/static/bower_components/chart.js/dist/Chart.min.js")
+    script(src = "/static/bower_components/chartjs-plugin-streaming/dist/chartjs-plugin-streaming.min.js")
