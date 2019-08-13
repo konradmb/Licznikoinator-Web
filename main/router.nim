@@ -1,7 +1,7 @@
 import jester, htmlgen
 import times
 import nativesockets, httpbeast
-import strformat, json
+import strformat, json, random
 
 include templates/index
 
@@ -27,8 +27,9 @@ router index:
   get "/time-live":
     enableRawMode()
     request.sendHeaders(Http200,@({"Content-Type": "text/event-stream"}))
+    randomize()
     for i in 0 .. 10:
-      let time = %*{"time": getClockStr()}
+      let time = %*{"time": rand(0.0 .. 1.0)}
       let data = 
         "retry: 3000\n" &
         &"data: {time} \n\n"
