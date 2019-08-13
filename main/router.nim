@@ -1,6 +1,7 @@
 import jester, htmlgen
 import times
 import nativesockets, httpbeast
+import strformat, json
 
 include templates/index
 
@@ -27,9 +28,10 @@ router index:
     enableRawMode()
     request.sendHeaders(Http200,@({"Content-Type": "text/event-stream"}))
     for i in 0 .. 10:
+      let time = %*{"time": getClockStr()}
       let data = 
         "retry: 3000\n" &
-        "data: {time: \'" & getClockStr() & "\'} \n\n"
+        &"data: {time} \n\n"
       request.send(data)
       await sleepAsync(1000)
     let nativeReq = request.getNativeReq()
