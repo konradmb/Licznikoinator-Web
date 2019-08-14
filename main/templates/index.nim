@@ -2,15 +2,16 @@ import tables
 import emerald
 include ../../base/templates/base
 
+proc dataWidget(id: string, description: string, value:string) {.html_mixin.}=
+    d(class="col-6 d-flex flex-column text-center justify-content-center"):
+      h3(id=id): value
+      h6(class="text-secondary"): description
+
 proc index(initData: Table[string,string]) {.html_templ: base .} =
   replace content:
     d.row:
-      d(class="col-6 d-flex flex-column text-center justify-content-center"):
-        h3(id="time"): put initData["currentConsumption"]
-        h6(class="text-secondary"): "Bieżące zużycie"
-      d(class="col-6 d-flex flex-column text-center justify-content-center"):
-        h3(id="time2")
-        h6(class="text-secondary"): "Bieżące zużycie"
+      call_mixin dataWidget("time", "Bieżące zużycie", initData["currentConsumption"])
+      call_mixin dataWidget("time2", "Bieżące zużycie", "NaNaNaNNaN")
     d.row:
       d(class="col-3")
       d(class="col-6"):
