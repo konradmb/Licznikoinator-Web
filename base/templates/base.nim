@@ -1,5 +1,13 @@
 import emerald
 
+template renderTemplate*(name: untyped, body: untyped): untyped =
+  var
+    s = newStringStream()
+    t {.inject.} = `name`()
+  body
+  t.render(s)
+  s.data
+
 proc base(title: string) {.html_templ.} =
   title = if title == "": "Licznikoinator"
           else: title

@@ -5,15 +5,6 @@ import strformat, json, random
 
 include templates/index
 
-
-template renderTemplate(name: untyped, body: untyped): untyped =
-  var
-    s = newStringStream()
-    t {.inject.} = `name`()
-  body
-  t.render(s)
-  s.data
-
 router index:
   get "/":
     let initData = {"currentConsumption": "brak danych"}.toTable
