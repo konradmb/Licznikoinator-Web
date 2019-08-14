@@ -17,6 +17,9 @@ proc index(initData: Table[string,string]) {.html_templ: base .} =
       d(class="col-6"):
         canvas(id = "myChart")
       d(class="col-3")
+    d.row:
+      h2: "Informacje o liczniku:"
+      d(id="meterInfo")
     
   append scripts:
     script(src = "/static/bower_components/moment/min/moment-with-locales.min.js")
