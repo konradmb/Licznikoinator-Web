@@ -1,6 +1,5 @@
 import jester, htmlgen
 import times
-import nativesockets, httpbeast
 import strformat, json, random
 
 include templates/index
@@ -27,6 +26,4 @@ router index:
         &"data: {time} \n\n"
       request.send(data)
       await sleepAsync(3000)
-    let nativeReq = request.getNativeReq()
-    nativeReq.forget()
-    nativeReq.client.close()
+    request.close()
