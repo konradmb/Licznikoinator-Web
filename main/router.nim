@@ -1,6 +1,7 @@
 import jester, htmlgen
 import times
 import strformat, json, random
+import ../utils
 
 include templates/index
 
