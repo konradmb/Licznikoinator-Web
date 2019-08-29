@@ -7,7 +7,7 @@ proc dataWidget(id: string, description: string, value:string) {.html_mixin.}=
       h3(id=id): value
       h6(class="text-secondary"): description
 
-proc index(initData: Table[string,string]) {.html_templ: base .} =
+proc index(initData: Table[string,string], meterInfo: string) {.html_templ: base .} =
   replace content:
     d.row:
       call_mixin dataWidget("time", "Bieżące zużycie", initData["currentConsumption"])
@@ -19,7 +19,9 @@ proc index(initData: Table[string,string]) {.html_templ: base .} =
       d(class="col-3")
     d.row:
       h2: "Informacje o liczniku:"
-      d(id="meterInfo")
+    d.row:
+      pre(id="meterInfo"):
+        meterInfo
     
   append scripts:
     script(src = "/static/bower_components/moment/min/moment-with-locales.min.js")

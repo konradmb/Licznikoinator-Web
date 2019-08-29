@@ -1,4 +1,6 @@
 import jester, htmlgen
+import asyncdispatch
+import meterClient/meterClient
 
 settings:
   port = Port(5000)

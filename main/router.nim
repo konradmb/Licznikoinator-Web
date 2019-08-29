@@ -10,6 +10,7 @@ router index:
     let initData = {"currentConsumption": "brak danych"}.toTable
     var tpl = renderTemplate(newIndex):
       t.initData = initData
+      t.meterInfo = ""
     resp tpl
   get "/time":
     let data = 
