@@ -1,9 +1,18 @@
 import httpclient, asyncdispatch
+import ../utils
 
 var currentMeterInfo*: string
 
-proc readMeterRegularly*(): Future[bool] {.async.} =
-    var httpClient = newAsyncHttpClient()
-    let meterInfo = await httpClient.getContent("http://esp8266.local/read-meter")
-    currentMeterInfo = meterInfo
-    return true
+proc readMeterRegularly*(fd: AsyncFD): bool {.gcsafe.} =
+  var asyncHttpClient = newAsyncHttpClient()
+  echoIfDebug "Reading meter"
+  let meterInfo = asyncHttpClient.getContent("http://esp8266.local/read-meter")
+  echoIfDebug "AddCallback"
+  meterInfo.addCallback(proc () {.gcsafe.} =
+                          try:
+                            echoIfDebug "Meter read"
+                          except:
+                            discard
+                      )
+  echo "return"
+  return false

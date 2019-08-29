@@ -9,5 +9,9 @@ settings:
 
 include main/router
 
+addTimer(5000, false, readMeterRegularly)
+
 routes:
   extend index, ""
+  get "/read-meter":
+    resp currentMeterInfo
