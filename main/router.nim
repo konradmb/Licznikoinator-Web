@@ -2,6 +2,7 @@ import jester, htmlgen
 import times
 import strformat, json, random
 import ../utils
+import ../meterClient/meterClient
 
 include templates/index
 
@@ -10,7 +11,7 @@ router index:
     let initData = {"currentConsumption": "brak danych"}.toTable
     var tpl = renderTemplate(newIndex):
       t.initData = initData
-      t.meterInfo = ""
+      t.meterInfo = currentMeterInfo
     resp tpl
   get "/time":
     let data = 

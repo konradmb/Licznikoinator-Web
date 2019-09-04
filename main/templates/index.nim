@@ -21,6 +21,7 @@ proc index(initData: Table[string,string], meterInfo: string) {.html_templ: base
       h2: "Informacje o liczniku:"
     d.row:
       pre(id="meterInfo"):
+        {. preserve_whitespace = true .}
         meterInfo
     
   append scripts:
