@@ -6,7 +6,7 @@ proc startMockMeterDataServer*() =
   var counter: float = 0
 
   proc cb(req: Request) {.async.} =
-    var usage = counter * 0.1
+    var usage = counter * 0.01
     let message = fmt"""
   0.0.0(61403025)
   0.0.1(PAF)
@@ -15,9 +15,9 @@ proc startMockMeterDataServer*() =
   F.F(00)
   0.2.0(1.25)
   C.5(10002)
-  F.8.0*00({counter:09.2f})
-  F.8.1*00(000001.29)
-  F.8.2*00(000000.07)
+  F.8.0*00({usage:09.2f})
+  F.8.1*00({usage:09.2f})
+  F.8.2*00({usage:09.2f})
   F.8.3*00(000000.00)
   F.8.4*00(000000.00)
   F.8.1*01(000001.29)
@@ -45,7 +45,7 @@ proc startMockMeterDataServer*() =
     echo "Meter data sent"
 
   echo "Meter data server start"
-  waitFor server.serve(Port(8080), cb)
+  waitFor server.serve(Port(8081), cb)
 
 when isMainModule:
   startMockMeterDataServer()
