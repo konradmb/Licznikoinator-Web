@@ -12,7 +12,7 @@ proc base(title: string) {.html_templ.} =
     body:
       # {.filters = nil.}
       nav(class = "navbar navbar-expand-md navbar-dark bg-dark fixed-top"):
-        a(class = "navbar-brand", href = "#"): "Licznikoinator"
+        a(class = "navbar-brand", href = "/"): "Licznikoinator"
         button(class = "navbar-toggler", type = "button",
         data = {"toggle": "collapse", "target": "#navbarsExampleDefault"},
         aria = {"controls": "navbarsExampleDefault", "expanded": "false",
@@ -23,21 +23,22 @@ proc base(title: string) {.html_templ.} =
 
           ul(class = "navbar-nav mr-auto"):
             li(class = "nav-item active"):
-              a(class = "nav-link", href = "#"):
+              a(class = "nav-link", href = "/read-meter"):
                 "Przegląd"
                 span(class = "sr-only"): "(current)"
-            li(class = "nav-item"):
-              a(class = "nav-link", href = "#"): "Historia"
-            li(class = "nav-item"):
-              a(class = "nav-link disabled", href = "#"): "Disabled"
-            li(class = "nav-item dropdown"):
-              a(class = "nav-link dropdown-toggle", href = "#",
-                  id = "dropdown01", data = {"toggle": "dropdown"}, aria = {
-                  "haspopup": "true", "expanded": "false"}): "Dropdown"
-              d(class = "dropdown-menu", aria = {"labelledby": "dropdown01"}):
-                a(class = "dropdown-item", href = "#"): "Action"
-                a(class = "dropdown-item", href = "#"): "Another action"
-                a(class = "dropdown-item", href = "#"): "Something else here"
+            when not defined(demo):
+              li(class = "nav-item"):
+                a(class = "nav-link", href = "#"): "Historia"
+              li(class = "nav-item"):
+                a(class = "nav-link disabled", href = "#"): "Disabled"
+              li(class = "nav-item dropdown"):
+                a(class = "nav-link dropdown-toggle", href = "#",
+                    id = "dropdown01", data = {"toggle": "dropdown"}, aria = {
+                    "haspopup": "true", "expanded": "false"}): "Dropdown"
+                d(class = "dropdown-menu", aria = {"labelledby": "dropdown01"}):
+                  a(class = "dropdown-item", href = "#"): "Action"
+                  a(class = "dropdown-item", href = "#"): "Another action"
+                  a(class = "dropdown-item", href = "#"): "Something else here"
 
 
       main(role="main", class="container"):

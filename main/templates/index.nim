@@ -10,8 +10,8 @@ proc dataWidget(id: string, description: string, value:string) {.html_mixin.}=
 proc index(initData: Table[string,string], meterInfo: string) {.html_templ: base .} =
   replace content:
     d.row:
-      call_mixin dataWidget("time", "Bieżące zużycie", initData["currentConsumption"])
-      call_mixin dataWidget("time2", "Bieżące zużycie", "NaNaNaNNaN")
+      call_mixin dataWidget("totalUsage", "Zużycie we wszystkich taryfach", initData["energyUsage.total"])
+      call_mixin dataWidget("tariffUsage", "Zużycie w bieżącej taryfie", initData["energyUsage.tariff[1]"])
     d.row:
       d(class="col-3")
       d(class="col-6"):
@@ -36,13 +36,15 @@ proc index(initData: Table[string,string], meterInfo: string) {.html_templ: base
           evtSource.onmessage = function(e){
             var json = JSON.parse(e.data);
             console.log(json);
-            var timeElement = document.getElementById('time');
-            timeElement.innerText = json.time.toLocaleString();
-            var timeElement2 = document.getElementById('time2');
-            timeElement2.innerText = json.time.toLocaleString();
-            myChart.data.datasets[1].data.push({
+            var totalUsageElement = document.getElementById('totalUsage');
+            totalUsageElement.innerText = json.meterData.energyUsage.total.toLocaleString();
+            var tariffUsageElement = document.getElementById('tariffUsage');
+            tariffUsageElement.innerText = json.meterData.energyUsage.tariff[0].toLocaleString();
+            var meterInfoElement = document.getElementById('meterInfo');
+            meterInfoElement.innerText = json.rawMeterData;
+            myChart.data.datasets[0].data.push({
                 x: Date.now(),
-                y: json.time
+                y: json.meterData.energyUsage.total
             });
             // update chart datasets keeping the current animation
             myChart.update({
@@ -63,13 +65,7 @@ proc index(initData: Table[string,string], meterInfo: string) {.html_templ: base
             type: 'line',
             data: {
               datasets: [{
-                label: 'Dataset 1',
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                lineTension: 0,
-                borderDash: [8, 4]
-              }, {
-                label: 'Dataset 2',
+                label: 'Zużycie we wszystkich taryfach',
                 borderColor: 'rgb(54, 162, 235)',
                 backgroundColor: 'rgba(54, 162, 235, 0.5)',
                 lineTension: 0
@@ -80,7 +76,7 @@ proc index(initData: Table[string,string], meterInfo: string) {.html_templ: base
                 xAxes: [{
                   type: 'realtime',
                   realtime: {
-                    duration: 120000
+                    duration: 240000
                   },
                   time: {
                     displayFormats: {

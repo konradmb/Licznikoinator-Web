@@ -1,7 +1,10 @@
 import httpclient, asyncdispatch
+import strutils
 import ../utils
+import data
 
-var currentMeterInfo*{.threadvar.}: string
+var currentRawMeterInfo*{.threadvar.}: string
+var currentMeterInfo*{.threadvar.}: MeterData
 const meterAddress = when defined(test): "http://127.0.0.1:8080/"
   else: "http://esp8266.local/"
 
@@ -13,7 +16,11 @@ proc readMeterRegularly*(fd: AsyncFD): bool {.gcsafe.} =
   meterInfo.addCallback(proc () {.gcsafe.} =
     try:
       echoIfDebug "Meter read"
-      currentMeterInfo = meterInfo.read()
+      let receivedMessage = meterInfo.read()
+      currentRawMeterInfo = receivedMessage
+      if receivedMessage.contains("Error"):
+        return
+      currentMeterInfo = parse(receivedMessage)
     except:
       discard
   )

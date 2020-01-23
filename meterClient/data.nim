@@ -2,24 +2,24 @@ import times
 import strscans
 
 type EnergyUsage = object
-  total: float
-  tariff: array[1..4, float]
+  total*: float
+  tariff*: array[1..4, float]
 
 type MeterData* = object
-  clientAccount: string
-  deviceAddress: string
-  time: Time
+  clientAccount*: string
+  deviceAddress*: string
+  time*: Time
   # date: DateTime
-  errorRegister: string
-  firmwareVersion: string
-  energyUsage: EnergyUsage
-  tariffId: string
+  errorRegister*: string
+  firmwareVersion*: string
+  energyUsage*: EnergyUsage
+  tariffId*: string
 
 template match(pattern: string, vars: varargs[untyped]): bool =
   var discardString: string
   scanf(input, ("$*"&pattern), discardString, vars)
 
-func parse(input: string): MeterData =
+func parse*(input: string): MeterData =
   result = MeterData()
   discard match("0.0.0($*)", result.clientAccount)
   discard match("0.0.1($*)", result.deviceAddress)
